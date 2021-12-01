@@ -6,10 +6,9 @@
 //  Copyright © 2019 tattn. All rights reserved.
 //
 
-import VRMKit
 import SceneKit
 
-public final class Humanoid {
+final class Humanoid {
     var bones: [Bones: SCNNode] = [:]
 
     func setUp(humanoid: VRM.Humanoid, nodes: [SCNNode?]) {
@@ -20,11 +19,11 @@ public final class Humanoid {
         }
     }
 
-    public func node(for bone: Bones) -> SCNNode? {
+    func node(for bone: Bones) -> SCNNode? {
         return bones[bone]
     }
 
-    public enum Bones: String {
+    enum Bones: String {
         case hips
         case leftUpperLeg
         case rightUpperLeg

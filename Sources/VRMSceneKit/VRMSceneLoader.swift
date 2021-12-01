@@ -7,29 +7,28 @@
 //
 
 import Foundation
-import VRMKit
 import SceneKit
 import SpriteKit
 
-open class VRMSceneLoader {
+class VRMSceneLoader {
     let vrm: VRM
     private let gltf: GLTF
     private let sceneData: SceneData
 
     private var rootDirectory: URL? = nil
 
-    public init(vrm: VRM, rootDirectory: URL? = nil) {
+    init(vrm: VRM, rootDirectory: URL? = nil) {
         self.vrm = vrm
         self.gltf = vrm.gltf.jsonData
         self.rootDirectory = rootDirectory
         self.sceneData = SceneData(vrm: gltf)
     }
 
-    public func loadScene() throws -> VRMScene {
+    func loadScene() throws -> VRMScene {
         return try loadScene(withSceneIndex: gltf.scene)
     }
 
-    public func loadScene(withSceneIndex index: Int) throws -> VRMScene {
+    func loadScene(withSceneIndex index: Int) throws -> VRMScene {
         if let cache = try sceneData.load(\.scenes, index: index) { return cache }
         let gltfScene = try gltf.load(\.scenes, keyName: "scenes")[index]
         
@@ -46,7 +45,7 @@ open class VRMSceneLoader {
         return scnScene
     }
 
-    public func loadThumbnail() throws -> UIImage? {
+    func loadThumbnail() throws -> GLTImage? {
         guard let textureIndex = vrm.meta.texture else { return nil }
         if let cache = try sceneData.load(\.images, index: textureIndex) { return cache }
         return try image(withImageIndex: textureIndex)
@@ -153,10 +152,10 @@ open class VRMSceneLoader {
         return texture
     }
 
-    func image(withImageIndex index: Int) throws -> UIImage {
+    func image(withImageIndex index: Int) throws -> GLTImage {
         if let cache = try sceneData.load(\.images, index: index) { return cache }
         let gltfImage = try gltf.load(\.images, keyName: "images")[index]
-        let image = try UIImage(image: gltfImage, relativeTo: rootDirectory, loader: self)
+        let image = try GLTImage.create(image: gltfImage, relativeTo: rootDirectory, loader: self)
         sceneData.images[index] = image
         return image
     }

@@ -27,10 +27,13 @@ extension simd_float4x4 {
     func multiplyPoint(_ v: SIMD3<Float>) -> SIMD3<Float> {
         let scn = SCNMatrix4(self)
         var vector3: SIMD3<Float> = SIMD3<Float>()
-        vector3.x = (scn.m11 * v.x + scn.m21 * v.y + scn.m31 * v.z) + scn.m41
-        vector3.y = (scn.m12 * v.x + scn.m22 * v.y + scn.m32 * v.z) + scn.m42
-        vector3.z = (scn.m13 * v.x + scn.m23 * v.y + scn.m33 * v.z) + scn.m43
-        let num: Float = 1.0 / ((scn.m14 * v.x + scn.m24 * v.y + scn.m34 * v.z) + scn.m44)
+        let vx = CGFloat(v.x)
+        let vy = CGFloat(v.y)
+        let vz = CGFloat(v.z)
+        vector3.x = Float((scn.m11 * vx + scn.m21 * vy + scn.m31 * vz) + scn.m41)
+        vector3.y = Float((scn.m12 * vx + scn.m22 * vy + scn.m32 * vz) + scn.m42)
+        vector3.z = Float((scn.m13 * vx + scn.m23 * vy + scn.m33 * vz) + scn.m43)
+        let num: Float = 1.0 / Float((scn.m14 * vx + scn.m24 * vy + scn.m34 * vz) + scn.m44)
         vector3.x *= num
         vector3.y *= num
         vector3.z *= num

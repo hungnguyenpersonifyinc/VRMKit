@@ -11,21 +11,21 @@ import Foundation
 // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#accessor
 
 extension GLTF {
-    public struct Accessor: Codable {
-        public let bufferView: Int?
+    struct Accessor: Codable {
+        let bufferView: Int?
         let _byteOffset: Int?
-        public var byteOffset: Int { return _byteOffset ?? 0 }
-        public let componentType: ComponentType
+        var byteOffset: Int { return _byteOffset ?? 0 }
+        let componentType: ComponentType
         let _normalized: Bool?
-        public var normalized: Bool { return _normalized ?? false }
-        public let count: Int
-        public let type: Type
-        public let max: [Float]?
-        public let min: [Float]?
-        public let sparse: Sparse?
-        public let name: String?
-        public let extensions: CodableAny?
-        public let extras: CodableAny?
+        var normalized: Bool { return _normalized ?? false }
+        let count: Int
+        let type: Type
+        let max: [Float]?
+        let min: [Float]?
+        let sparse: Sparse?
+        let name: String?
+        let extensions: CodableAny?
+        let extras: CodableAny?
 
         private enum CodingKeys: String, CodingKey {
             case bufferView
@@ -45,7 +45,7 @@ extension GLTF {
 }
 
 extension GLTF.Accessor {
-    public enum ComponentType: Int, Codable {
+    enum ComponentType: Int, Codable {
         case byte = 5120
         case unsignedByte = 5121
         case short = 5122
@@ -54,7 +54,7 @@ extension GLTF.Accessor {
         case float = 5126
     }
 
-    public enum `Type`: String, Codable {
+    enum `Type`: String, Codable {
         case SCALAR
         case VEC2
         case VEC3
@@ -64,20 +64,20 @@ extension GLTF.Accessor {
         case MAT4
     }
 
-    public struct Sparse: Codable {
-        public let count: Int
-        public let indices: Indices
-        public let values: Values
-        public let extensions: CodableAny?
-        public let extras: CodableAny?
+    struct Sparse: Codable {
+        let count: Int
+        let indices: Indices
+        let values: Values
+        let extensions: CodableAny?
+        let extras: CodableAny?
 
-        public struct Indices: Codable {
-            public let bufferView: Int
+        struct Indices: Codable {
+            let bufferView: Int
             let _byteOffset: Int?
-            public var byteOffset: Int { return _byteOffset ?? 0 }
-            public let componentType: ComponentType
-            public let extensions: CodableAny?
-            public let extras: CodableAny?
+            var byteOffset: Int { return _byteOffset ?? 0 }
+            let componentType: ComponentType
+            let extensions: CodableAny?
+            let extras: CodableAny?
             private enum CodingKeys: String, CodingKey {
                 case bufferView
                 case _byteOffset = "byteOffset"
@@ -87,12 +87,12 @@ extension GLTF.Accessor {
             }
         }
 
-        public struct Values: Codable {
-            public let bufferView: Int
+        struct Values: Codable {
+            let bufferView: Int
             let _byteOffset: Int?
-            public var byteOffset: Int { return _byteOffset ?? 0 }
-            public let extensions: CodableAny?
-            public let extras: CodableAny?
+            var byteOffset: Int { return _byteOffset ?? 0 }
+            let extensions: CodableAny?
+            let extras: CodableAny?
             private enum CodingKeys: String, CodingKey {
                 case bufferView
                 case _byteOffset = "byteOffset"

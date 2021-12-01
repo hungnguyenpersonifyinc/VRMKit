@@ -6,7 +6,6 @@
 //  Copyright © 2019 tattn. All rights reserved.
 //
 
-import VRMKit
 import SceneKit
 
 extension SCNMorpher {

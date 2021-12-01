@@ -8,19 +8,19 @@
 
 import Foundation
 
-public struct VRM {
-    public let gltf: BinaryGLTF
-    public let meta: Meta
-    public let version: String?
-    public let materialProperties: [MaterialProperty]
-    public let humanoid: Humanoid
-    public let blendShapeMaster: BlendShapeMaster
-    public let firstPerson: FirstPerson
-    public let secondaryAnimation: SecondaryAnimation
+struct VRM {
+    let gltf: BinaryGLTF
+    let meta: Meta
+    let version: String?
+    let materialProperties: [MaterialProperty]
+    let humanoid: Humanoid
+    let blendShapeMaster: BlendShapeMaster
+    let firstPerson: FirstPerson
+    let secondaryAnimation: SecondaryAnimation
 
-    public let materialPropertyNameMap: [String: MaterialProperty]
+    let materialPropertyNameMap: [String: MaterialProperty]
 
-    public init(data: Data) throws {
+    init(data: Data) throws {
         gltf = try BinaryGLTF(data: data)
 
         let rawExtensions = try gltf.jsonData.extensions ??? .keyNotFound("extensions")
@@ -40,48 +40,48 @@ public struct VRM {
     }
 }
 
-public extension VRM {
+extension VRM {
     struct Meta: Codable {
-        public let title: String?
-        public let author: String?
-        public let contactInformation: String?
-        public let reference: String?
-        public let texture: Int?
-        public let version: String?
+        let title: String?
+        let author: String?
+        let contactInformation: String?
+        let reference: String?
+        let texture: Int?
+        let version: String?
 
-        public let allowedUserName: String?
-        public let violentUssageName: String?
-        public let sexualUssageName: String?
-        public let commercialUssageName: String?
-        public let otherPermissionUrl: String?
+        let allowedUserName: String?
+        let violentUssageName: String?
+        let sexualUssageName: String?
+        let commercialUssageName: String?
+        let otherPermissionUrl: String?
 
-        public let licenseName: String?
-        public let otherLicenseUrl: String?
+        let licenseName: String?
+        let otherLicenseUrl: String?
     }
 
     struct MaterialProperty: Codable {
-        public let name: String
-        public let shader: String
-        public let renderQueue: Int
-        public let floatProperties: CodableAny
-        public let keywordMap: [String: Bool]
-        public let tagMap: [String: String]
-        public let textureProperties: [String: Int]
-        public let vectorProperties: CodableAny
+        let name: String
+        let shader: String
+        let renderQueue: Int
+        let floatProperties: CodableAny
+        let keywordMap: [String: Bool]
+        let tagMap: [String: String]
+        let textureProperties: [String: Int]
+        let vectorProperties: CodableAny
     }
 
     struct Humanoid: Codable {
-        public let armStretch: Double
-        public let feetSpacing: Double
-        public let hasTranslationDoF: Bool
-        public let legStretch: Double
-        public let lowerArmTwist: Double
-        public let lowerLegTwist: Double
-        public let upperArmTwist: Double
-        public let upperLegTwist: Double
-        public let humanBones: [HumanBone]
+        let armStretch: Double
+        let feetSpacing: Double
+        let hasTranslationDoF: Bool
+        let legStretch: Double
+        let lowerArmTwist: Double
+        let lowerLegTwist: Double
+        let upperArmTwist: Double
+        let upperLegTwist: Double
+        let humanBones: [HumanBone]
 
-        public init(from decoder: Decoder) throws {
+        init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             armStretch = try decodeDouble(key: .armStretch, container: container)
             feetSpacing = try decodeDouble(key: .feetSpacing, container: container)
@@ -94,22 +94,22 @@ public extension VRM {
             humanBones = try container.decode([HumanBone].self, forKey: .humanBones)
         }
 
-        public struct HumanBone: Codable {
-            public let bone: String
-            public let node: Int
-            public let useDefaultValues: Bool
+        struct HumanBone: Codable {
+            let bone: String
+            let node: Int
+            let useDefaultValues: Bool
         }
     }
 
     struct BlendShapeMaster: Codable {
-        public let blendShapeGroups: [BlendShapeGroup]
-        public struct BlendShapeGroup: Codable {
-            public let binds: [Bind]?
-            public let materialValues: [MaterialValueBind]?
-            public let name: String
-            public let presetName: String
+        let blendShapeGroups: [BlendShapeGroup]
+        struct BlendShapeGroup: Codable {
+            let binds: [Bind]?
+            let materialValues: [MaterialValueBind]?
+            let name: String
+            let presetName: String
             let _isBinary: Bool?
-            public var isBinary: Bool { return _isBinary ?? false }
+            var isBinary: Bool { return _isBinary ?? false }
             private enum CodingKeys: String, CodingKey {
                 case binds
                 case materialValues
@@ -117,37 +117,37 @@ public extension VRM {
                 case presetName
                 case _isBinary = "isBinary"
             }
-            public struct Bind: Codable {
-                public let index: Int
-                public let mesh: Int
-                public let weight: Double
+            struct Bind: Codable {
+                let index: Int
+                let mesh: Int
+                let weight: Double
 
-                public init(from decoder: Decoder) throws {
+                init(from decoder: Decoder) throws {
                     let container = try decoder.container(keyedBy: CodingKeys.self)
                     index = try container.decode(Int.self, forKey: .index)
                     mesh = try container.decode(Int.self, forKey: .mesh)
                     weight = try decodeDouble(key: .weight, container: container)
                 }
             }
-            public struct MaterialValueBind: Codable {
-                public let materialName: String
-                public let propertyName: String
-                public let targetValue: [Double]
+            struct MaterialValueBind: Codable {
+                let materialName: String
+                let propertyName: String
+                let targetValue: [Double]
             }
         }
     }
 
     struct FirstPerson: Codable {
-        public let firstPersonBone: Int
-        public let firstPersonBoneOffset: Vector3
-        public let meshAnnotations: [MeshAnnotation]
-        public let lookAtTypeName: LookAtType
+        let firstPersonBone: Int
+        let firstPersonBoneOffset: Vector3
+        let meshAnnotations: [MeshAnnotation]
+        let lookAtTypeName: LookAtType
         
-        public struct MeshAnnotation: Codable {
-            public let firstPersonFlag: String
-            public let mesh: Int
+        struct MeshAnnotation: Codable {
+            let firstPersonFlag: String
+            let mesh: Int
         }
-        public enum LookAtType: String, Codable {
+        enum LookAtType: String, Codable {
             case none = "None"
             case bone = "Bone"
             case blendShape = "BlendShape"
@@ -155,20 +155,20 @@ public extension VRM {
     }
 
     struct SecondaryAnimation: Codable {
-        public let boneGroups: [BoneGroup]
-        public let colliderGroups: [ColliderGroup]
-        public struct BoneGroup: Codable {
-            public let bones: [Int]
-            public let center: Int
-            public let colliderGroups: [Int]
-            public let comment: String?
-            public let dragForce: Double
-            public let gravityDir: Vector3
-            public let gravityPower: Double
-            public let hitRadius: Double
-            public let stiffiness: Double
+        let boneGroups: [BoneGroup]
+        let colliderGroups: [ColliderGroup]
+        struct BoneGroup: Codable {
+            let bones: [Int]
+            let center: Int
+            let colliderGroups: [Int]
+            let comment: String?
+            let dragForce: Double
+            let gravityDir: Vector3
+            let gravityPower: Double
+            let hitRadius: Double
+            let stiffiness: Double
 
-            public init(from decoder: Decoder) throws {
+            init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: CodingKeys.self)
                 bones = try container.decode([Int].self, forKey: .bones)
                 center = try container.decode(Int.self, forKey: .center)
@@ -182,20 +182,20 @@ public extension VRM {
             }
         }
         
-        public struct ColliderGroup: Codable {
-            public let node: Int
-            public let colliders: [Collider]
+        struct ColliderGroup: Codable {
+            let node: Int
+            let colliders: [Collider]
             
-            public struct Collider: Codable {
-                public let offset: Vector3
-                public let radius: Double
+            struct Collider: Codable {
+                let offset: Vector3
+                let radius: Double
             }
         }
     }
 
     struct Vector3: Codable {
-        public let x, y, z: Double
-        public init(from decoder: Decoder) throws {
+        let x, y, z: Double
+        init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             x = try decodeDouble(key: .x, container: container)
             y = try decodeDouble(key: .y, container: container)

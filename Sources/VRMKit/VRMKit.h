@@ -14,6 +14,6 @@ FOUNDATION_EXPORT double VRMKitVersionNumber;
 //! Project version string for VRMKit.
 FOUNDATION_EXPORT const unsigned char VRMKitVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <VRMKit/PublicHeader.h>
+// In this header, you should import all the headers of your framework using statements like #import <VRMKit/PublicHeader.h>
 
 

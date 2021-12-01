@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MoreCodableError: Error {
+enum MoreCodableError: Error {
     case cast
     case unwrapped
     case tryValue

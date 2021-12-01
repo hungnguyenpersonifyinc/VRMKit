@@ -8,16 +8,16 @@
 
 import Foundation
 
-public struct CodableAny {
-    public let value: Any
+struct CodableAny {
+    let value: Any
 
-    public init(_ value: Any) {
+    init(_ value: Any) {
         self.value = value
     }
 }
 
 extension CodableAny: Decodable {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
 
         if container.decodeNil() {
@@ -46,7 +46,7 @@ extension CodableAny: Decodable {
 }
 
 extension CodableAny: Encodable {
-    public func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
 
         switch value {

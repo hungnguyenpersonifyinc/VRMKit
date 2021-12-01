@@ -11,11 +11,11 @@ import Foundation
 // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#texture
 
 extension GLTF {
-    public struct Texture: Codable {
-        public let sampler: Int?
-        public let source: Int
-        public let name: String?
-        public let extensions: CodableAny?
-        public let extras: CodableAny?
+    struct Texture: Codable {
+        let sampler: Int?
+        let source: Int
+        let name: String?
+        let extensions: CodableAny?
+        let extras: CodableAny?
     }
 }

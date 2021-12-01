@@ -14,6 +14,6 @@ FOUNDATION_EXPORT double VRMSceneKitVersionNumber;
 //! Project version string for VRMSceneKit.
 FOUNDATION_EXPORT const unsigned char VRMSceneKitVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <VRMSceneKit/PublicHeader.h>
+// In this header, you should import all the headers of your framework using statements like #import <VRMSceneKit/PublicHeader.h>
 
 

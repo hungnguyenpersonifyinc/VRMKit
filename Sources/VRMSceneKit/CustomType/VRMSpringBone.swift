@@ -8,7 +8,6 @@
 
 import SceneKit
 import GameKit
-import VRMKit
 
 final class VRMSpringBone {
     struct SphereCollider {
@@ -16,14 +15,14 @@ final class VRMSpringBone {
         let radius: Float
     }
     
-    public let comment: String?
-    public let stiffnessForce: Float
-    public let gravityPower: Float
-    public let gravityDir: SIMD3<Float>
-    public let dragForce: Float
-    public let center: SCNNode?
-    public let rootBones: [SCNNode]
-    public let hitRadius: Float
+    let comment: String?
+    let stiffnessForce: Float
+    let gravityPower: Float
+    let gravityDir: SIMD3<Float>
+    let dragForce: Float
+    let center: SCNNode?
+    let rootBones: [SCNNode]
+    let hitRadius: Float
     
     private var initialLocalRotationMap: [SCNNode : simd_quatf] = [:]
     private let colliderGroups: [VRMSpringBoneColliderGroup]
@@ -142,7 +141,7 @@ final class VRMSpringBone {
                     base: baseNode,
                     center: self.center,
                     radius: self.hitRadius,
-                    color: UIColor.yellow,
+                    color: GLTColor.yellow,
                     gizmoNodeName: gizmoNodeName
                 )
             }
@@ -153,7 +152,7 @@ final class VRMSpringBone {
 extension VRMSpringBone {
     class VRMSpringBoneLogic {
         let node: SCNNode
-        public var head: SCNNode { self.node }
+        var head: SCNNode { self.node }
         private let length: Float
         private var currentTail: SIMD3<Float>
         private var prevTail: SIMD3<Float>
@@ -220,14 +219,14 @@ extension VRMSpringBone {
             return nextTail
         }
         
-        func drawGizmo(base: SCNNode, center: SCNNode?, radius: simd_float1, color: UIColor, gizmoNodeName: String) {
+        func drawGizmo(base: SCNNode, center: SCNNode?, radius: simd_float1, color: GLTColor, gizmoNodeName: String) {
             let currentTail = center?.utx.transformPoint(self.currentTail) ?? self.currentTail
             let prevTail = center?.utx.transformPoint(self.prevTail) ?? self.prevTail
 
             let prevGizmoGeometry = SCNSphere(radius: CGFloat(radius))
             let prevGizmoNode = SCNNode(geometry: prevGizmoGeometry)
             prevGizmoNode.name = gizmoNodeName
-            prevGizmoNode.geometry?.firstMaterial?.diffuse.contents = UIColor.gray
+            prevGizmoNode.geometry?.firstMaterial?.diffuse.contents = GLTColor.gray
             base.addChildNode(prevGizmoNode)
             prevGizmoNode.simdWorldPosition = prevTail
             

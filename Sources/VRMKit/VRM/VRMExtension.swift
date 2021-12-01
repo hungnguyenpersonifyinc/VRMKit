@@ -8,7 +8,7 @@
 
 import Foundation
 
-public extension VRM.MaterialProperty {
+extension VRM.MaterialProperty {
     var vrmShader: Shader? {
         return Shader(rawValue: shader)
     }

@@ -9,13 +9,13 @@
 import Foundation
 
 extension GLTF {
-    public struct Color4: Codable {
-        public let r, g, b, a: Float
+    struct Color4: Codable {
+        let r, g, b, a: Float
     }
 }
 
 extension GLTF.Color4 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         r = try container.decode(Float.self)
         g = try container.decode(Float.self)
@@ -23,7 +23,7 @@ extension GLTF.Color4 {
         a = try container.decode(Float.self)
     }
 
-    public func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         try container.encode(r)
         try container.encode(g)

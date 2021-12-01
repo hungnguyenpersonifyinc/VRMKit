@@ -9,31 +9,31 @@
 import Foundation
 
 
-open class DictionaryDecoder: Decoder {
-    open var codingPath: [CodingKey]
-    open var userInfo: [CodingUserInfoKey: Any] = [:]
+class DictionaryDecoder: Decoder {
+    var codingPath: [CodingKey]
+    var userInfo: [CodingUserInfoKey: Any] = [:]
     var storage = Storage()
 
-    public init() {
+    init() {
         codingPath = []
     }
 
-    public init(container: Any, codingPath: [CodingKey] = []) {
+    init(container: Any, codingPath: [CodingKey] = []) {
         storage.push(container: container)
         self.codingPath = codingPath
     }
 
-    open func container<Key: CodingKey>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> {
+    func container<Key: CodingKey>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> {
         let container = try lastContainer(forType: [String: Any].self)
         return KeyedDecodingContainer(KeyedContainer<Key>(decoder: self, codingPath: [], container: try unboxRawType(container, as: [String: Any].self)))
     }
 
-    open func unkeyedContainer() throws -> UnkeyedDecodingContainer {
+    func unkeyedContainer() throws -> UnkeyedDecodingContainer {
         let container = try lastContainer(forType: [Any].self)
         return UnkeyedContanier(decoder: self, container: try unboxRawType(container, as: [Any].self))
     }
 
-    open func singleValueContainer() throws -> SingleValueDecodingContainer {
+    func singleValueContainer() throws -> SingleValueDecodingContainer {
         return SingleValueContanier(decoder: self)
     }
 
@@ -69,7 +69,7 @@ open class DictionaryDecoder: Decoder {
 }
 
 extension DictionaryDecoder {
-    open func decode<T : Decodable>(_ type: T.Type, from container: Any) throws -> T {
+    func decode<T : Decodable>(_ type: T.Type, from container: Any) throws -> T {
         return try unbox(container, as: T.self)
     }
 }

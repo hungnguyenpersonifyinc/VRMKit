@@ -11,20 +11,20 @@ import Foundation
 // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#sampler
 
 extension GLTF {
-    public struct Sampler: Codable {
-        public let magFilter: MagFilter?
-        public let minFilter: MinFilter?
+    struct Sampler: Codable {
+        let magFilter: MagFilter?
+        let minFilter: MinFilter?
         let _wrapS: Wrap?
-        public var wrapS: Wrap {
+        var wrapS: Wrap {
             return self._wrapS ?? .REPEAT
         }
         let _wrapT: Wrap?
-        public var wrapT: Wrap {
+        var wrapT: Wrap {
             return self._wrapT ?? .REPEAT
         }
-        public let name: String?
-        public let extensions: CodableAny?
-        public let extras: CodableAny?
+        let name: String?
+        let extensions: CodableAny?
+        let extras: CodableAny?
 
         private enum CodingKeys: String, CodingKey {
             case magFilter
@@ -36,12 +36,12 @@ extension GLTF {
             case extras
         }
 
-        public enum MagFilter: Int, Codable {
+        enum MagFilter: Int, Codable {
             case NEAREST = 9728
             case LINEAR = 9729
         }
 
-        public enum MinFilter: Int, Codable {
+        enum MinFilter: Int, Codable {
             case NEAREST = 9728
             case LINEAR = 9729
             case NEAREST_MIPMAP_NEAREST = 9984
@@ -50,7 +50,7 @@ extension GLTF {
             case LINEAR_MIPMAP_LINEAR = 9987
         }
 
-        public enum Wrap: Int, Codable {
+        enum Wrap: Int, Codable {
             case CLAMP_TO_EDGE = 33071
             case MIRRORED_REPEAT = 33648
             case REPEAT = 10497

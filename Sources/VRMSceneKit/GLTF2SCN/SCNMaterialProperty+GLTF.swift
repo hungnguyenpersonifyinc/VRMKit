@@ -6,7 +6,6 @@
 //  Copyright © 2018年 tattn. All rights reserved.
 //
 
-import VRMKit
 import SceneKit
 
 extension SCNMaterialProperty {

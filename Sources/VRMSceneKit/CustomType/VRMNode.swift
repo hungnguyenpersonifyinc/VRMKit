@@ -7,22 +7,21 @@
 //
 
 import SceneKit
-import VRMKit
 
-open class VRMNode: SCNNode {
-    public let vrm: VRM
-    public let humanoid = Humanoid()
+class VRMNode: SCNNode {
+    let vrm: VRM
+    let humanoid = Humanoid()
     private let timer = Timer()
     private var springBones: [VRMSpringBone] = []
 
     var blendShapeClips: [BlendShapeKey: BlendShapeClip] = [:]
 
-    public init(vrm: VRM) {
+    init(vrm: VRM) {
         self.vrm = vrm
         super.init()
     }
 
-    required public init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -77,7 +76,7 @@ open class VRMNode: SCNNode {
     /// - Parameters:
     ///   - value: a weight of the blend shape (0.0 <= value <= 1.0)
     ///   - key: a key of the blend shape
-    public func setBlendShape(value: CGFloat, for key: BlendShapeKey) {
+    func setBlendShape(value: CGFloat, for key: BlendShapeKey) {
         guard let clip = blendShapeClips[key] else { return }
         let value: CGFloat = clip.isBinary ? round(value) : value
         for binding in clip.values {
@@ -93,7 +92,7 @@ open class VRMNode: SCNNode {
     ///
     /// - Parameter key: a key of the blend shape
     /// - Returns: a weight of the blend shape
-    public func blendShape(for key: BlendShapeKey) -> CGFloat {
+    func blendShape(for key: BlendShapeKey) -> CGFloat {
         guard let clip = blendShapeClips[key],
             let binding = clip.values.first,
             let morpher = binding.mesh.childNodes.lazy.compactMap({ $0.morpher }).first else { return 0 }
@@ -102,7 +101,7 @@ open class VRMNode: SCNNode {
 }
 
 extension VRMNode: RenderUpdatable {
-    public func update(at time: TimeInterval) {
+    func update(at time: TimeInterval) {
         let seconds = timer.deltaTime(updateAtTime: time)
         springBones.forEach({ $0.update(deltaTime: seconds) })
     }

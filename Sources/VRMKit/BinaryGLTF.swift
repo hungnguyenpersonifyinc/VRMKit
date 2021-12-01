@@ -11,10 +11,10 @@ import Foundation
 // see:
 // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md
 
-public struct BinaryGLTF {
-    public let version: GLTF.Version
-    public let jsonData: GLTF /// chunk 0
-    public let binaryBuffer: Data? /// chunk1
+struct BinaryGLTF {
+    let version: GLTF.Version
+    let jsonData: GLTF /// chunk 0
+    let binaryBuffer: Data? /// chunk1
 
     /// magic equals 0x46546C67. It is ASCII string glTF, and can be used to identify data as Binary glTF.
     static let magic = 0x46546C67
@@ -26,7 +26,7 @@ public struct BinaryGLTF {
 }
 
 extension BinaryGLTF {
-    public init(data: Data) throws {
+    init(data: Data) throws {
         var offset = MemoryLayout<UInt32>.size // skip `magic`
         let rawVersion: UInt32 = try read(data, offset: &offset, size: MemoryLayout<UInt32>.size)
         guard let version = GLTF.Version(rawValue: rawVersion), version == .two else {

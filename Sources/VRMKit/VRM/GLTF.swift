@@ -8,27 +8,27 @@
 
 import Foundation
 
-public struct GLTF: Codable {
-    public let extensionsUsed: [String]?
-    public let extensionsRequired: [String]?
-    public let accessors: [Accessor]?
-    public let animations: [Animation]?
-    public let asset: Asset
-    public let buffers: [Buffer]?
-    public let bufferViews: [BufferView]?
-    public let cameras: [Camera]?
-    public let images: [Image]?
-    public let materials: [Material]?
-    public let meshes: [Mesh]?
-    public let nodes: [Node]?
-    public let samplers: [Sampler]?
+struct GLTF: Codable {
+    let extensionsUsed: [String]?
+    let extensionsRequired: [String]?
+    let accessors: [Accessor]?
+    let animations: [Animation]?
+    let asset: Asset
+    let buffers: [Buffer]?
+    let bufferViews: [BufferView]?
+    let cameras: [Camera]?
+    let images: [Image]?
+    let materials: [Material]?
+    let meshes: [Mesh]?
+    let nodes: [Node]?
+    let samplers: [Sampler]?
     let _scene: Int?
-    public var scene: Int { return _scene ?? 0 }
-    public let scenes: [Scene]?
-    public let skins: [Skin]?
-    public let textures: [Texture]?
-    public let extensions: CodableAny?
-    public let extras: CodableAny?
+    var scene: Int { return _scene ?? 0 }
+    let scenes: [Scene]?
+    let skins: [Skin]?
+    let textures: [Texture]?
+    let extensions: CodableAny?
+    let extras: CodableAny?
     private enum CodingKeys: String, CodingKey {
         case extensionsUsed
         case extensionsRequired
@@ -53,7 +53,7 @@ public struct GLTF: Codable {
 }
 
 extension GLTF {
-    public enum Version: UInt32 {
+    enum Version: UInt32 {
         case two = 2
     }
 }

@@ -11,23 +11,23 @@ import Foundation
 // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#mesh
 
 extension GLTF {
-    public struct Mesh: Codable {
-        public let primitives: [Primitive]
-        public let weights: [Float]?
-        public let name: String?
-        public let extensions: CodableAny?
-        public let extras: CodableAny?
+    struct Mesh: Codable {
+        let primitives: [Primitive]
+        let weights: [Float]?
+        let name: String?
+        let extensions: CodableAny?
+        let extras: CodableAny?
 
-        public struct Primitive: Codable {
-            public let attributes: CodableDictionary<AttributeKey, Int>
-            public let indices: Int?
-            public let material: Int?
-            public let mode: Mode
-            public var targets: [[AttributeKey: Int]]?
-            public let extensions: CodableAny?
-            public let extras: CodableAny?
+        struct Primitive: Codable {
+            let attributes: CodableDictionary<AttributeKey, Int>
+            let indices: Int?
+            let material: Int?
+            let mode: Mode
+            var targets: [[AttributeKey: Int]]?
+            let extensions: CodableAny?
+            let extras: CodableAny?
 
-            public enum Mode: Int, Codable {
+            enum Mode: Int, Codable {
                 case POINTS
                 case LINES
                 case LINE_LOOP
@@ -37,7 +37,7 @@ extension GLTF {
                 case TRIANGLE_FAN
             }
 
-            public enum AttributeKey: String, Codable, CodingKey {
+            enum AttributeKey: String, Codable, CodingKey {
                 case POSITION
                 case NORMAL
                 case TANGENT
@@ -48,7 +48,7 @@ extension GLTF {
                 case WEIGHTS_0
             }
 
-            public init(from decoder: Decoder) throws {
+            init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: CodingKeys.self)
                 attributes = try container.decode(CodableDictionary<AttributeKey, Int>.self, forKey: .attributes)
                 indices = try container.decodeIfPresent(Int.self, forKey: .indices)
@@ -77,7 +77,7 @@ extension GLTF {
                     }
                 }
 
-                public func encode(to encoder: Encoder) throws {
+                func encode(to encoder: Encoder) throws {
                     switch self {
                     case .int(let value):
                         var container = encoder.singleValueContainer()
@@ -88,7 +88,7 @@ extension GLTF {
                     }
                 }
 
-                public init(from decoder: Decoder) throws {
+                init(from decoder: Decoder) throws {
                     do {
                         let container = try decoder.singleValueContainer()
                         self = .int(try container.decode(Int.self))

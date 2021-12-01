@@ -9,17 +9,17 @@
 import Foundation
 
 extension GLTF {
-    public struct Vector4: Codable {
-        public let x, y, z, w: Float
+    struct Vector4: Codable {
+        let x, y, z, w: Float
 
-        public static var zero: Vector4 {
+        static var zero: Vector4 {
             return .init(x: 0, y: 0, z: 0, w: 0)
         }
     }
 }
 
 extension GLTF.Vector4 {
-    public init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         x = try container.decode(Float.self)
         y = try container.decode(Float.self)
@@ -27,7 +27,7 @@ extension GLTF.Vector4 {
         w = try container.decode(Float.self)
     }
 
-    public func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.unkeyedContainer()
         try container.encode(x)
         try container.encode(y)

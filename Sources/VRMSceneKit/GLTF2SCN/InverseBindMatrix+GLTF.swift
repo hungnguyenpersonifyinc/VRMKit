@@ -6,7 +6,6 @@
 //  Copyright © 2019 tattn. All rights reserved.
 //
 
-import VRMKit
 import SceneKit
 
 typealias InverseBindMatrix = NSValue
@@ -31,8 +30,9 @@ extension Array where Element == InverseBindMatrix {
             for _ in 0..<accessor.count {
                 let rawPtr = UnsafeRawPointer(ptr)
                 let values = (0..<componentsPerVector)
-                    .map { rawPtr.load(fromByteOffset: $0*bytesPerComponent, as: Float.self) }
+                    .map { CGFloat(rawPtr.load(fromByteOffset: $0*bytesPerComponent, as: Float.self)) }
 //                    .map { SCNFloat($0) }
+                
                 matrices.append(InverseBindMatrix(scnMatrix4: try SCNMatrix4(values)))
                 ptr = ptr.advanced(by: stride)
             }

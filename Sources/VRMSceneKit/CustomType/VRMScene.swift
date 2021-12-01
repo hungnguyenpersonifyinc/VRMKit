@@ -8,8 +8,8 @@
 
 import SceneKit
 
-open class VRMScene: SCNScene {
-    public let vrmNode: VRMNode
+class VRMScene: SCNScene {
+    let vrmNode: VRMNode
 
     init(node: VRMNode) {
         self.vrmNode = node

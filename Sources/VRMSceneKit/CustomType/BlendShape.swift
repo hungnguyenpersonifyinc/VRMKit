@@ -32,7 +32,7 @@ struct MaterialValueBinding {
     let baseValue: SCNVector4
 }
 
-public enum BlendShapeKey: Hashable {
+enum BlendShapeKey: Hashable {
     case preset(BlendShapePreset)
     case custom(String)
     var isPreset: Bool {
@@ -43,7 +43,7 @@ public enum BlendShapeKey: Hashable {
     }
 }
 
-public enum BlendShapePreset: String {
+enum BlendShapePreset: String {
     case unknown
     case neutral
     case a

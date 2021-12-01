@@ -8,20 +8,20 @@
 
 import SceneKit
 
-public protocol UnityTransformCompatible {
+protocol UnityTransformCompatible {
     associatedtype CompatibleType
     
     var utx: CompatibleType { get }
 }
 
-public final class UnityTransform<Base> {
+final class UnityTransform<Base> {
     private let base: Base
-    public init(_ base: Base) {
+    init(_ base: Base) {
         self.base = base
     }
 }
 
-public extension UnityTransformCompatible {
+extension UnityTransformCompatible {
     var utx: UnityTransform<Self> {
         return UnityTransform(self)
     }

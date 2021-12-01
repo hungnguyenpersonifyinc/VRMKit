@@ -11,12 +11,12 @@ import Foundation
 // https://github.com/KhronosGroup/glTF/blob/master/specification/2.0/README.md#skin
 
 extension GLTF {
-    public struct Skin: Codable {
-        public let inverseBindMatrices: Int?
-        public let skeleton: Int?
-        public let joints: [Int]
-        public let name: String?
-        public let extensions: CodableAny?
-        public let extras: CodableAny?
+    struct Skin: Codable {
+        let inverseBindMatrices: Int?
+        let skeleton: Int?
+        let joints: [Int]
+        let name: String?
+        let extensions: CodableAny?
+        let extras: CodableAny?
     }
 }
